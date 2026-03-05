@@ -1,137 +1,444 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ayla Avilar</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-/* RESET BÁSICO */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0b141a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
 
-/* FUNDO PRINCIPAL */
-body {
-  min-height: 100vh;
-  width: 100%;
+        .chat-container {
+            width: 100%;
+            max-width: 500px;
+            background-color: #0b141a;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
 
-  display: flex;
-  justify-content: center; /* centro horizontal */
-  align-items: center;     /* centro vertical */
+        .chat-header {
+            background-color: #202c33;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid #2a3942;
+        }
 
-  background-color: #000;
-  background-image: url('imagens/fundo.PNG');
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+        .chat-header-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
 
-  overflow-x: hidden;
-  font-family: Arial, Helvetica, sans-serif;
-}
+        .chat-header-info h2 {
+            color: #e9edef;
+            font-size: 16px;
+            font-weight: 500;
+        }
 
-/* CONTEÚDO CENTRAL */
-.container {
-  width: 100%;
-  max-width: 320px;
-  padding: 16px;
+        .chat-header-info span {
+            color: #8696a0;
+            font-size: 13px;
+        }
 
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+        .chat-messages {
+            background-color: #0b141a;
+            padding: 20px;
+            min-height: 500px;
+            max-height: 70vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
 
-  text-align: center;
-  z-index: 2;
-}
+        .message {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: messageIn 0.4s ease forwards;
+        }
 
-/* RESPONSIVO */
-@media (max-width: 768px) {
-  .container {
-    max-width: 90%;
-  }
-}
+        @keyframes messageIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-/* BOTÕES TRANSPARENTES/FOSCOS */
-.btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.05); /* transparente/fosco */
-  border: 1px solid rgba(255,255,255,0.12);
-  text-decoration: none;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 500;
-  width: 100%;
-  justify-content: center;
-  transition: all 0.25s ease;
-  backdrop-filter: blur(5px);
-}
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
 
-.btn img {
-  width: 20px;
-  height: 20px;
-}
+        .message-content {
+            max-width: 75%;
+        }
 
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 22px rgba(255,255,255,0.15);
-  background: rgba(255,255,255,0.08);
-}
+        .message-name {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #25d366;
+        }
 
-.btn:active {
-  transform: scale(0.97);
-}
+        .message-bubble {
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.4;
+            position: relative;
+            word-wrap: break-word;
+        }
 
-/* MOBILE */
-@media (max-width: 768px) {
-  .container { max-width: 90%; }
-  .btn { font-size: 13px; padding: 10px 14px; }
-}
+        .message.received .message-bubble {
+            background-color: #202c33;
+            color: #e9edef;
+            border-top-left-radius: 0;
+        }
 
-@media (max-width: 480px) {
-  .btn { font-size: 12px; padding: 8px 12px; }
-}
-  
-</style>
+        .message.received .message-bubble::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -8px;
+            border-width: 0 8px 8px 0;
+            border-style: solid;
+            border-color: transparent #202c33 transparent transparent;
+        }
+
+        .message.sent {
+            flex-direction: row-reverse;
+        }
+
+        .message.sent .message-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .message.sent .message-name {
+            color: #53bdeb;
+        }
+
+        .message.sent .message-bubble {
+            background-color: #005c4b;
+            color: #e9edef;
+            border-top-right-radius: 0;
+        }
+
+        .message.sent .message-bubble::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -8px;
+            left: auto;
+            border-width: 0 0 8px 8px;
+            border-style: solid;
+            border-color: transparent transparent transparent #005c4b;
+        }
+
+        .message.no-name .message-name {
+            display: none;
+        }
+
+        .response-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 15px 20px;
+            background-color: #202c33;
+            border-top: 1px solid #2a3942;
+        }
+
+        .response-options.hidden {
+            display: none;
+        }
+
+        .response-btn {
+            padding: 12px 20px;
+            background-color: #00a884;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .response-btn:hover {
+            background-color: #25d366;
+            transform: scale(1.02);
+        }
+
+        .response-btn:active {
+            transform: scale(0.98);
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+        }
+
+        .typing-indicator.hidden {
+            display: none;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+            padding: 10px 14px;
+            background-color: #202c33;
+            border-radius: 8px;
+        }
+
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            background-color: #8696a0;
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dots span:nth-child(1) { animation-delay: 0s; }
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-5px); }
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: #0b141a;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #374045;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 520px) {
+            body {
+                padding: 0;
+            }
+
+            .chat-container {
+                border-radius: 0;
+                max-width: 100%;
+                height: 100vh;
+            }
+
+            .chat-messages {
+                max-height: calc(100vh - 160px);
+                min-height: calc(100vh - 160px);
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <img src="imagens/modelo.png" alt="Havenna" class="chat-header-avatar">
+            <div class="chat-header-info">
+                <h2>Havenna</h2>
+                <span>online</span>
+            </div>
+        </div>
 
-<!-- PARTE 2 - HTML -->
-<main class="container">
+        <div class="chat-messages" id="chatMessages">
+            <div class="typing-indicator hidden" id="typingIndicator">
+                <img src="imagens/modelo.png" alt="" class="message-avatar">
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
 
-  <!-- TEXTO CHAMATIVO TELEGRAM -->
-<div class="text-telegram">
-  🔥 Acesse conteúdo exclusivo +18 no Telegram! Clique agora e não perca nada!
-</div>
+        <div class="response-options hidden" id="responseOptions">
+            <button class="response-btn" onclick="selectResponse('Sim')">Sim</button>
+            <button class="response-btn" onclick="selectResponse('Óbvio')">Óbvio</button>
+            <button class="response-btn" onclick="selectResponse('Claro')">Claro</button>
+        </div>
+    </div>
 
-<!-- LINK TELEGRAM -->
-<a href="#" class="btn" target="_blank">
-  <img src="icons/telegram.png" alt="Telegram">
-  <span>Telegram</span>
-</a>
+    <script>
+        const DELAY_BETWEEN_MESSAGES = 2000;
+        const TYPING_DURATION = 1500;
 
-<!-- TEXTO SOCIAL -->
-<div class="text-social">
-  📱 Siga-me nas redes sociais e acompanhe minha rotina, dicas e momentos do dia a dia!
-</div>
+        let currentStep = 0;
+        let conversationPaused = false;
 
-<!-- LINK INSTAGRAM -->
-<a href="https://www.instagram.com/ayla.avilar?igsh=MXJjamx1ZnRrcGR0Mg%3D%3D&utm_source=qr" class="btn" target="_blank">
-  <img src="icons/instagram.png" alt="Instagram">
-  <span>Instagram</span>
-</a>
+        // TEXTOS DOS BALÕES - EDITE AQUI
+        const conversationFlow = [
+            {
+                type: 'auto',
+                image: 'imagens/modelo.png',
+                name: 'Havenna',
+                text: 'Oi, tudo bem com você??? 😊'  // TEXTO_BALAO_1
+            },
+            {
+                type: 'auto',
+                image: 'imagens/foto1.png',
+                name: null,
+                text: 'Olha só essa foto que eu tirei ontem!'  // TEXTO_BALAO_2
+            },
+            {
+                type: 'auto',
+                image: 'imagens/modelo.png',
+                name: 'Havenna',
+                text: 'Você gostou?'  // TEXTO_BALAO_3
+            },
+            {
+                type: 'user-choice',
+                options: ['Sim', 'Óbvio', 'Claro']
+            },
+            {
+                type: 'auto',
+                image: 'imagens/modelo.png',
+                name: 'Havenna',
+                text: 'Que bom que gostou! Fico muito feliz 💕'  // TEXTO_BALAO_4
+            },
+            {
+                type: 'auto',
+                image: 'imagens/modelo.png',
+                name: 'Havenna',
+                text: 'Me segue lá no Instagram pra ver mais conteúdos!'  // TEXTO_BALAO_5
+            }
+        ];
 
-<!-- LINK TIKTOK -->
-<a href="#" class="btn" target="_blank">
-  <img src="icons/tiktok.png" alt="TikTok">
-  <span>TikTok</span>
-</a>
+        const chatMessages = document.getElementById('chatMessages');
+        const responseOptions = document.getElementById('responseOptions');
+        const typingIndicator = document.getElementById('typingIndicator');
 
-</main>
+        function createReceivedMessage(image, name, text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = name ? 'message received' : 'message received no-name';
+            
+            messageDiv.innerHTML = `
+                <img src="${image}" alt="${name || ''}" class="message-avatar">
+                <div class="message-content">
+                    ${name ? `<div class="message-name">${name}</div>` : ''}
+                    <div class="message-bubble">${text}</div>
+                </div>
+            `;
+            
+            return messageDiv;
+        }
+
+        function createSentMessage(text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message sent';
+            
+            messageDiv.innerHTML = `
+                <img src="imagens/usuario.png" alt="Usuario" class="message-avatar">
+                <div class="message-content">
+                    <div class="message-name">Usuario</div>
+                    <div class="message-bubble">${text}</div>
+                </div>
+            `;
+            
+            return messageDiv;
+        }
+
+        function showTypingIndicator(image) {
+            const avatarImg = typingIndicator.querySelector('.message-avatar');
+            avatarImg.src = image;
+            typingIndicator.classList.remove('hidden');
+            scrollToBottom();
+        }
+
+        function hideTypingIndicator() {
+            typingIndicator.classList.add('hidden');
+        }
+
+        function scrollToBottom() {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function addMessage(messageElement) {
+            chatMessages.insertBefore(messageElement, typingIndicator);
+            scrollToBottom();
+        }
+
+        function showResponseOptions() {
+            responseOptions.classList.remove('hidden');
+        }
+
+        function hideResponseOptions() {
+            responseOptions.classList.add('hidden');
+        }
+
+        function selectResponse(response) {
+            hideResponseOptions();
+            const userMessage = createSentMessage(response);
+            addMessage(userMessage);
+            conversationPaused = false;
+            currentStep++;
+            setTimeout(processNextStep, DELAY_BETWEEN_MESSAGES);
+        }
+
+        function processNextStep() {
+            if (currentStep >= conversationFlow.length || conversationPaused) {
+                return;
+            }
+
+            const step = conversationFlow[currentStep];
+
+            if (step.type === 'auto') {
+                showTypingIndicator(step.image);
+                
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    const message = createReceivedMessage(step.image, step.name, step.text);
+                    addMessage(message);
+                    currentStep++;
+                    setTimeout(processNextStep, DELAY_BETWEEN_MESSAGES);
+                }, TYPING_DURATION);
+                
+            } else if (step.type === 'user-choice') {
+                conversationPaused = true;
+                showResponseOptions();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(processNextStep, 1000);
+        });
+
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            setTimeout(processNextStep, 1000);
+        }
+    </script>
 </body>
 </html>
