@@ -558,10 +558,41 @@
             }
         }
 
-        .gallery-item img {
+        .gallery-item img,
+        .gallery-item video {
             width: 100%;
             aspect-ratio: 1;
             object-fit: cover;
+        }
+
+        .gallery-item-video {
+            position: relative;
+        }
+
+        .gallery-item-video .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .gallery-item-video .play-icon svg {
+            width: 24px;
+            height: 24px;
+            color: #fff;
+            margin-left: 4px;
+        }
+
+        .gallery-item-video video {
+            cursor: pointer;
         }
 
         .gallery-item .download-btn {
@@ -728,6 +759,7 @@
         </div>
 
         <div class="gallery-content" id="galleryContent">
+            <!-- EXEMPLO DE FOTO -->
             <div class="gallery-item">
                 <img src="imagens/foto1.png" alt="Foto 1">
                 <button class="download-btn" onclick="downloadImage('imagens/foto1.png', 'foto1.png')">
@@ -738,6 +770,25 @@
                 </button>
             </div>
 
+            <!-- EXEMPLO DE VÍDEO -->
+            <div class="gallery-item">
+                <div class="gallery-item-video">
+                    <video src="imagens/video1.mp4" onclick="playVideo(this)"></video>
+                    <div class="play-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                </div>
+                <button class="download-btn" onclick="downloadImage('imagens/video1.mp4', 'video1.mp4')">
+                    <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                    </svg>
+                    Baixar
+                </button>
+            </div>
+
+            <!-- MAIS FOTOS -->
             <div class="gallery-item">
                 <img src="imagens/foto1.png" alt="Foto 2">
                 <button class="download-btn" onclick="downloadImage('imagens/foto1.png', 'foto2.png')">
@@ -758,15 +809,7 @@
                 </button>
             </div>
 
-            <div class="gallery-item">
-                <img src="imagens/foto1.png" alt="Foto 4">
-                <button class="download-btn" onclick="downloadImage('imagens/foto1.png', 'foto4.png')">
-                    <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-                    </svg>
-                    Baixar
-                </button>
-            </div>
+            <!-- ADICIONE MAIS FOTOS/VÍDEOS COPIANDO OS BLOCOS ACIMA -->
         </div>
     </div>
 
@@ -811,6 +854,19 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+        }
+
+        // ========== FUNÇÃO PLAY VÍDEO ==========
+        function playVideo(videoElement) {
+            const playIcon = videoElement.parentElement.querySelector('.play-icon');
+            
+            if (videoElement.paused) {
+                videoElement.play();
+                playIcon.style.display = 'none';
+            } else {
+                videoElement.pause();
+                playIcon.style.display = 'flex';
+            }
         }
 
         // ========== CHAT LOGIC ==========
