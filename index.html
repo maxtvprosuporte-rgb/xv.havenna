@@ -539,9 +539,9 @@
         .gallery-content {
             flex: 1;
             overflow-y: auto;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
             gap: 15px;
             align-content: start;
         }
@@ -553,7 +553,6 @@
             display: flex;
             flex-direction: column;
             animation: fadeIn 0.4s ease forwards;
-            width: 100%;
         }
 
         @keyframes fadeIn {
@@ -570,7 +569,7 @@
         .gallery-item img,
         .gallery-item video {
             width: 100%;
-            max-height: 400px;
+            aspect-ratio: 1;
             object-fit: cover;
         }
 
@@ -605,11 +604,11 @@
         }
 
         .gallery-item .download-btn {
-            padding: 14px;
+            padding: 12px;
             background-color: #00a884;
             color: #fff;
             border: none;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -617,7 +616,6 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            flex-shrink: 0;
         }
 
         .gallery-item .download-btn:hover {
@@ -651,13 +649,9 @@
             }
 
             .gallery-content {
-                padding: 12px;
-                gap: 12px;
-            }
-
-            .gallery-item img,
-            .gallery-item video {
-                max-height: 350px;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                padding: 15px;
             }
 
             .welcome-avatar {
@@ -944,8 +938,8 @@
             <!-- FOTO 5 -->
             
             <div class="gallery-item">
-                <img src="imagens/foto5.JPG" alt="Foto 5">
-                <button class="download-btn" onclick="downloadImage('imagens/foto5.JPG', 'foto5.JPG')">
+                <img src="imagens/foto5.PNG" alt="Foto 5">
+                <button class="download-btn" onclick="downloadImage('imagens/foto5.PNG', 'foto5.PNG')">
                     <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
                     </svg>
@@ -975,8 +969,8 @@
             <!-- FOTO 6 -->
             
             <div class="gallery-item">
-                <img src="imagens/foto6.JPG" alt="Foto 6">
-                <button class="download-btn" onclick="downloadImage('imagens/foto6.JPG', 'foto6.JPG')">
+                <img src="imagens/foto6.PNG" alt="Foto 6">
+                <button class="download-btn" onclick="downloadImage('imagens/foto6.PNG', 'foto6.PNG')">
                     <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
                     </svg>
@@ -1006,8 +1000,8 @@
             <!-- FOTO 7 -->
             
             <div class="gallery-item">
-                <img src="imagens/foto7.JPG" alt="Foto 7">
-                <button class="download-btn" onclick="downloadImage('imagens/foto7.JPG', 'foto7.JPG')">
+                <img src="imagens/foto7.PNG" alt="Foto 7">
+                <button class="download-btn" onclick="downloadImage('imagens/foto7.PNG', 'foto7.PNG')">
                     <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
                     </svg>
@@ -1034,11 +1028,11 @@
                 </button>
             </div>
 
-            <!-- FOTO 3 -->
+            <!-- FOTO 8 -->
             
             <div class="gallery-item">
-                <img src="imagens/foto8.JPG" alt="Foto 8">
-                <button class="download-btn" onclick="downloadImage('imagens/foto8.JPG', 'foto8.JPG')">
+                <img src="imagens/foto8.PNG" alt="Foto 8">
+                <button class="download-btn" onclick="downloadImage('imagens/foto8.PNG', 'foto8.PNG')">
                     <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
                     </svg>
@@ -1159,7 +1153,7 @@
         const IMAGENS = {
             havenna: 'imagens/havenna.png',
             usuario: 'imagens/usuario.png',
-            foto1: 'imagens/foto1.png'
+            foto0: 'imagens/foto0.JPG'
         };
 
         const DELAY_BETWEEN_MESSAGES = 2000;
