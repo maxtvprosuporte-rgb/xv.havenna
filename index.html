@@ -811,10 +811,41 @@
 
         <div class="gallery-content" id="galleryContent">
             
+            <!-- FOTO 1 -->
+            
+            <div class="gallery-item">
+                <img src="imagens/foto1.PNG" alt="Foto 2">
+                <button class="download-btn" onclick="downloadImage('imagens/foto1.PNG', 'foto1.PNG')">
+                    <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                    </svg>
+                    Baixar
+                </button>
+            </div>
+
+            <!-- VÍDEO 1 -->
+            
+            <div class="gallery-item">
+                <div class="gallery-item-video">
+                    <video src="imagens/video1.MP4" onclick="playVideo(this)"></video>
+                    <div class="play-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                </div>
+                <button class="download-btn" onclick="downloadImage('imagens/video1.MP4', 'video1.MP4')">
+                    <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                    </svg>
+                    Baixar
+                </button>
+            </div>
+
             <!-- FOTO 2 -->
             
             <div class="gallery-item">
-                <img src="imagens/foto2.PNG" alt="Foto 2">
+                <img src="imagens/foto2.PNG" alt="Foto 3">
                 <button class="download-btn" onclick="downloadImage('imagens/foto2.PNG', 'foto2.PNG')">
                     <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
@@ -827,45 +858,14 @@
             
             <div class="gallery-item">
                 <div class="gallery-item-video">
-                    <video src="imagens/video2.mp4" onclick="playVideo(this)"></video>
+                    <video src="imagens/video2.MP4" onclick="playVideo(this)"></video>
                     <div class="play-icon">
                         <svg viewBox="0 0 24 24" fill="currentColor">
                             <path d="M8 5v14l11-7z"/>
                         </svg>
                     </div>
                 </div>
-                <button class="download-btn" onclick="downloadImage('imagens/video2.mp4', 'video2.mp4')">
-                    <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-                    </svg>
-                    Baixar
-                </button>
-            </div>
-
-            <!-- FOTO 3 -->
-            
-            <div class="gallery-item">
-                <img src="imagens/foto3.PNG" alt="Foto 3">
-                <button class="download-btn" onclick="downloadImage('imagens/foto3.PNG', 'foto3.PNG')">
-                    <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-                    </svg>
-                    Baixar
-                </button>
-            </div>
-
-            <!-- VÍDEO 3 -->
-            
-            <div class="gallery-item">
-                <div class="gallery-item-video">
-                    <video src="imagens/video3.mp4" onclick="playVideo(this)"></video>
-                    <div class="play-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </div>
-                </div>
-                <button class="download-btn" onclick="downloadImage('imagens/video3.mp4', 'video3.mp4')">
+                <button class="download-btn" onclick="downloadImage('imagens/video2.MP4', 'video2.MP4')">
                     <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
                     </svg>
@@ -936,7 +936,7 @@
         const IMAGENS = {
             havenna: 'imagens/havenna.png',
             usuario: 'imagens/usuario.png',
-            foto1: 'imagens/foto1.png'
+            foto0: 'imagens/foto0.PNG'
         };
 
         const DELAY_BETWEEN_MESSAGES = 2000;
@@ -956,7 +956,7 @@
                 type: 'auto',
                 image: IMAGENS.havenna,
                 name: 'Havenna',
-                text: '<img src="imagens/foto1.png" alt="Foto" style="max-width:200px; border-radius:8px;">'
+                text: '<img src="imagens/foto0.png" alt="Foto" style="max-width:200px; border-radius:8px;">'
             },
             {
                 type: 'auto',
